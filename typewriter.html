@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <h2 class="text--dynamic"></h2>
+  </div>
+  
+  <style>
+  
+  .wrapper {
+    font-family: Inter;
+    letter-spacing: 1px;
+    font-size: 50px;
+    font-weight: 700;
+    justify-content: left;
+  }
+  
+  
+  .text--dynamic {
+    color: #000;
+  }
+  
+  </style>
+  
+  <script>
+  const textElement = document.querySelector(".text--dynamic");
+  const wordsArray = ["Offer your customers the promise of authenticity.               ","Amaze your clients with our finest adventures.               ", "Become the official provider of unforgettable experiences.               ","Book unique adventures.          ","Access all the fun that has to offer.               ","Reserve the best activities.               "];
+  let arrayLength = wordsArray.length;
+  
+  let currentLetterCount = 0,
+    currentWordCount = 0,
+    currentText = [],
+    currentWord = "",
+    currentLetter = "",
+    reverse = false;
+  
+  function typeWriting() {
+    if (currentWordCount <= arrayLength) {
+      if (currentWordCount == arrayLength) {
+        currentWordCount = 0;
+      }
+  
+      let letterCount = wordsArray[currentWordCount].length;
+      currentWord = wordsArray[currentWordCount];
+  
+      if (!reverse && currentLetterCount < letterCount) {
+        currentLetter = currentWord[currentLetterCount];
+        currentText.push(currentLetter);
+  
+        textElement.textContent = currentText.join("");
+        currentLetterCount++;
+        // console.log(currentText, currentLetterCount, letterCount);
+      }
+  
+      if (reverse && currentLetterCount <= letterCount) {
+        currentText.pop();
+        textElement.textContent = currentText.join("");
+        currentLetterCount--;
+        // console.log(currentText, currentLetterCount);
+      }
+  
+      if (currentLetterCount == letterCount) {
+        reverse = true;
+      }
+  
+      if (reverse && currentLetterCount == 0) {
+        currentText = [];
+        currentWordCount++;
+        reverse = false;
+      }
+    }
+    setTimeout(typeWriting, 45);
+  }
+  
+  window.addEventListener("load", typeWriting);
+  
+  </script>
+</body>
+</html>
